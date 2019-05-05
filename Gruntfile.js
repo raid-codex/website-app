@@ -19,6 +19,9 @@ module.exports = function (grunt) {
         },
 
         html2js: {
+            options: {
+                base: "./",
+            },
             dist: {
                 src: ['app/**/*.html'],
                 dest: 'build/app.templates.js'
