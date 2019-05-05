@@ -30,28 +30,26 @@
             });
         }
 
-        function setDefault() {
-            $location.search({});
-        }
-
         function setDefaultCmpStats() {
             $scope.cmpStats = ["rarity", "rating.overall"];
         }
 
         function setupStep() {
             var obj = $location.search();
-            if (obj.champions !== "") {
+            if (obj.champions && obj.champions !== "") {
                 var champions = obj.champions.split(",");
                 champions.forEach(function (name) {
                     $scope.cmpList.push($scope.championsByName[name]);
                 });
             }
-            var stats = obj.stats.split(",");
-            $scope.cmpStats = [];
-            stats.forEach(function (stat) {
-                if (!$scope.allowedStats[stat]) { return; }
-                $scope.cmpStats.push(stat);
-            });
+            if (obj.stats && obj.stats !== "") {
+                var stats = obj.stats.split(",");
+                $scope.cmpStats = [];
+                stats.forEach(function (stat) {
+                    if (!$scope.allowedStats[stat]) { return; }
+                    $scope.cmpStats.push(stat);
+                });
+            }
             if ($scope.cmpStats.length === 0) {
                 setDefaultCmpStatus();
             }
@@ -97,7 +95,14 @@
             $scope.cmpList.forEach(function (champion) {
                 str.push(champion.name);
             });
-            $location.search({ "champions": str.join(","), "step": "compare", "stats": $scope.cmpStats.join(",") });
+            var obj = {};
+            if ($scope.cmpStats.length > 0) {
+                obj.stats = $scope.cmpStats.join(",");
+            }
+            if (str.length > 0) {
+                obj.champions = str.join(",");
+            }
+            $location.search(obj);
         }
 
         $scope.getChampionAttr = function (champion, attr) {
@@ -123,6 +128,7 @@
             } else {
                 $scope.cmpStats.push(stat);
             }
+            refreshLoc();
         };
 
         init();
