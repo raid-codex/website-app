@@ -1,0 +1,29 @@
+{
+  "name": "website-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raid-codex/website-app.git"
+  },
+  "author": "Geoffrey Bauduin <bauduin.geo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raid-codex/website-app/issues"
+  },
+  "homepage": "https://github.com/raid-codex/website-app#readme",
+  "dependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-contrib-uglify": "^4.0.1",
+    "grunt-contrib-uglify-es": "github:gruntjs/grunt-contrib-uglify#harmony",
+    "grunt-file-hash": "^0.1.6",
+    "grunt-hash": "^0.5.0",
+    "grunt-html2js": "^0.6.0"
+  }
+}

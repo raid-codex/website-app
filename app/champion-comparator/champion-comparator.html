@@ -1,0 +1,132 @@
+<div ng-controller="ChampionComparatorCtrl">
+    <div class="row row-eq-height">
+        <div class="col-xs-12">
+            <span class="btn btn-just-icon" ng-click="showFilters = !showFilters">
+                <i class="fa fa-filter"></i>
+            </span>
+        </div>
+    </div>
+    <div class="row" ng-if="showFilters">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="btn" ng-if="cmpStats.indexOf(stat) > -1" style="background-color: green;"
+                        ng-repeat="(stat, _) in allowedStats" ng-click="statClick(stat)">
+                        <i class="fa fa-check"></i> {{ getHeader(stat) }}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="btn" ng-if="cmpStats.indexOf(stat) === -1" ng-repeat="(stat, _) in allowedStats"
+                        ng-click="statClick(stat)">
+                        <i class="fa fa-times"></i> {{ getHeader(stat) }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="centered table-responsive table-hover table champion-list-table">
+                <thead>
+                    <tr class="row-header">
+                        <th colspan=2>
+                            Name
+                        </th>
+                        <th ng-repeat="data in cmpStats">
+                            {{ getHeader(data) }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="cmpList.length == 0">
+                        <td colspan="{{ 2 + cmpStats.length }}" class="centered">
+                            Add a champion to start comparing
+                        </td>
+                    </tr>
+                    <tr ng-repeat="champion in cmpList">
+                        <td>
+                            <span class="btn btn-mini btn-just-icon" style="background-color: red;"
+                                ng-click="removeFromCompareList(champion)">
+                                <i class=" fa fa-times"></i>
+                            </span>
+                        </td>
+                        <td>
+                            <strong>
+                                <a href="{{ $root.websiteUrl }}{{ champion.website_link }}">
+                                    {{ champion.name }}
+                                </a>
+                            </strong>
+                        </td>
+                        <td ng-repeat="data in cmpStats">
+                            <span ng-switch="data">
+                                <span ng-switch-when="rarity">
+                                    <champion-rarity champion="champion"></champion-rarity>
+                                </span>
+                                <span ng-switch-default>
+                                    <span ng-if="data.substr(0, 7) === 'rating.'">
+                                        <champion-rating rating="getChampionAttr(champion, data)"></champion-rating>
+                                    </span>
+                                    <span ng-if="data.substr(0, 7) !== 'rating.'">
+                                        {{ getChampionAttr(champion, data) }}
+                                    </span>
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="{{ cmpStats.length + 2 }}">
+                            <div class="wpdreams_asl_container asl_w asl_m asl_m_1">
+                                <div class="probox">
+                                    <div class="promagnifier">
+                                        <div class="innericon">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px"
+                                                height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512"
+                                                xml:space="preserve">
+                                                <path id="magnifier-2-icon" d="M460.355,421.59L353.844,315.078c20.041-27.553,31.885-61.437,31.885-98.037
+                                                                            C385.729,124.934,310.793,50,218.686,50C126.58,50,51.645,124.934,51.645,217.041c0,92.106,74.936,167.041,167.041,167.041
+                                                                            c34.912,0,67.352-10.773,94.184-29.158L419.945,462L460.355,421.59z M100.631,217.041c0-65.096,52.959-118.056,118.055-118.056
+                                                                            c65.098,0,118.057,52.959,118.057,118.056c0,65.096-52.959,118.056-118.057,118.056C153.59,335.097,100.631,282.137,100.631,217.041
+                                                                            z"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="prosettings" style="display:none;" data-opened="0">
+                                        <div class="innericon">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                                xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="512px"
+                                                height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512"
+                                                xml:space="preserve">
+                                                <polygon id="arrow-25-icon" transform="rotate(90 256 256)"
+                                                    points="142.332,104.886 197.48,50 402.5,256 197.48,462 142.332,407.113 292.727,256 ">
+                                                </polygon>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <div class="proinput">
+                                        <form autocomplete="off" aria-label="Search form" class="form-group">
+                                            <input aria-label="Search input" type="search" class="orig form-control"
+                                                name="phrase" placeholder="Enter the name of the Champion" value=""
+                                                autocomplete="off" ng-model="search.name">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row row-eq-height" ng-if="search.name && search.name !== ''">
+                                <div class="col-xs-12">
+                                    <span class="btn btn-primary" ng-click="addToCompareList(champion)"
+                                        ng-repeat="champion in champions | filter:search:false"
+                                        ng-if="cmpList.indexOf(champion) === -1">
+                                        <i class="fa fa-plus"></i> {{ champion.name }}
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
