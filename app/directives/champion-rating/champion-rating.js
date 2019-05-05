@@ -24,7 +24,7 @@
                 };
             },
 
-            templateUrl: 'app/directives/champion-rating/champion-rating.html',
+            templateUrl: '/app/directives/champion-rating/champion-rating.html',
 
             replace: true,
         };
