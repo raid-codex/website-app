@@ -21,6 +21,9 @@ module.exports = function (grunt) {
         html2js: {
             options: {
                 base: "./",
+                module: "websiteApp",
+                singleModule: true,
+                existingModule: true,
             },
             dist: {
                 src: ['app/**/*.html'],

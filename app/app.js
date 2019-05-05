@@ -1,5 +1,5 @@
 (function () {
-    angular.module("websiteApp", ["templates-dist"]);
+    angular.module("websiteApp", []);
 
     angular.module("websiteApp").filter('capitalize', function () {
         return function (input) {

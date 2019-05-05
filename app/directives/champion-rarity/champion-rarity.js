@@ -7,7 +7,7 @@
                 champion: '='
             },
 
-            templateUrl: '/app/directives/champion-rarity/champion-rarity.html',
+            templateUrl: 'app/directives/champion-rarity/champion-rarity.html',
 
             replace: true,
         };
