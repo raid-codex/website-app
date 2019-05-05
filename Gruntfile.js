@@ -31,6 +31,20 @@ module.exports = function (grunt) {
             }
         },
 
+        filename_hash: {
+            options: {
+                files: ['dist/app.min.js'],
+                index: "dist/index.html",
+                dest: {
+                    files: 'dist',
+                    index: "dist",
+                },
+                filename: function (name, hash, extension) {
+                    return `${name}.${hash}${extension}`;
+                }
+            },
+        },
+
         concat: {
             options: {
                 separator: ';'
@@ -51,6 +65,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify-es');
     grunt.loadNpmTasks('grunt-html2js');
+    grunt.loadNpmTasks('grunt-filename-hash');
 
-    grunt.registerTask('package', ['jshint:all', 'html2js:dist', 'concat:dist', 'uglify:dist']);
+    grunt.registerTask('package', ['jshint:all', 'html2js:dist', 'concat:dist', 'uglify:dist', 'filename_hash']);
 };

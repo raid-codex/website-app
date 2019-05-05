@@ -23,6 +23,7 @@
     "grunt-contrib-uglify": "^4.0.1",
     "grunt-contrib-uglify-es": "github:gruntjs/grunt-contrib-uglify#harmony",
     "grunt-file-hash": "^0.1.6",
+    "grunt-filename-hash": "^1.0.1",
     "grunt-hash": "^0.5.0",
     "grunt-html2js": "^0.6.0"
   }
