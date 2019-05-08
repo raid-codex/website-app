@@ -112,7 +112,7 @@
         $scope.getChampionAttr = function (champion, attr) {
             var data = attr.split(".");
             var value = champion;
-            _.forEach(data, function (data_attr) {
+            data.forEach(function (data_attr) {
                 value = value[data_attr];
             });
             return value;

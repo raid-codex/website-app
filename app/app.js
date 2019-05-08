@@ -2,8 +2,17 @@
     angular.module("websiteApp", []);
 
     angular.module("websiteApp").filter('capitalize', function () {
+        function startCase(str) {
+            var split = str.split(" ");
+            var data = [];
+            split.forEach(function (sp) {
+                data.push(sp.charAt(0).toUpperCase() + sp.slice(1));
+            });
+            return data.join(" ");
+        }
+
         return function (input) {
-            return (!!input) ? _.startCase(_.toLower(input)) : '';
+            return (!!input) ? startCase(input.toLowerCase()) : '';
         };
     });
 
