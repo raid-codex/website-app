@@ -1,5 +1,5 @@
 (function () {
-    angular.module("websiteApp").controller("ChampionComparatorCtrl", function ($scope, $http, $location, $q, $filter) {
+    angular.module("websiteApp").controller("ChampionComparatorCtrl", function ($scope, $location, $filter, GoogleAnalytics, Champions, $q) {
 
         $scope.allowedStats = {
             "rarity": {},
@@ -53,14 +53,12 @@
             if ($scope.cmpStats.length === 0) {
                 setDefaultCmpStatus();
             }
+            refreshLoc();
         }
 
         function loadChampions() {
             var deferred = $q.defer();
-            $http({
-                method: "GET",
-                url: "https://raid-codex.github.io/champions/export/current/index.json",
-            }).then(function (res) {
+            Champions.all().then(function (res) {
                 $scope.champions = res.data;
                 $scope.championsByName = {};
                 $scope.champions.forEach(function (champion) {
@@ -79,6 +77,7 @@
                 $scope.cmpList.push(champion);
                 $scope.search.name = "";
                 refreshLoc();
+                GoogleAnalytics.event("ChampionComparator", "AddChampion", champion, $scope.cmpList.length);
             }
         };
 
@@ -87,6 +86,7 @@
             if (index > -1) {
                 $scope.cmpList.splice(index, 1);
                 refreshLoc();
+                GoogleAnalytics.event("ChampionComparator", "RemoveChampion", champion, $scope.cmpList.length);
             }
         };
 
@@ -94,8 +94,12 @@
             var str = [];
             $scope.cmpList.forEach(function (champion) {
                 str.push(champion.name);
+                GoogleAnalytics.event("ChampionComparator", "Champion", champion.name, $scope.cmpList.length);
             });
             var obj = {};
+            $scope.cmpStats.forEach(function (stat) {
+                GoogleAnalytics.event("ChampionComparator", "Stat", stat, $scope.cmpStats.length);
+            });
             if ($scope.cmpStats.length > 0) {
                 obj.stats = $scope.cmpStats.join(",");
             }
@@ -125,8 +129,10 @@
             var index = $scope.cmpStats.indexOf(stat);
             if (index > -1) {
                 $scope.cmpStats.splice(index, 1);
+                GoogleAnalytics.event("ChampionComparator", "RemoveStat", stat, $scope.cmpStats.length);
             } else {
                 $scope.cmpStats.push(stat);
+                GoogleAnalytics.event("ChampionComparator", "AddStat", stat, $scope.cmpStats.length);
             }
             refreshLoc();
         };
