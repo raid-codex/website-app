@@ -22,13 +22,11 @@
 
     angular.module("websiteApp").factory("GoogleAnalytics", function () {
 
-        if (typeof ga === "function") {
-            this.ga = ga;
-        } else {
-            this.ga = function () {
-                console.log("ga", this.arguments);
-            };
-        }
+        this.ga = function (p1, p2) {
+            if (typeof ga === "function") {
+                ga(p1, p2);
+            }
+        };
 
         this.event = function (category, action, label, value) {
             this.ga("send", {
