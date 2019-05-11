@@ -77,7 +77,7 @@
                 $scope.cmpList.push(champion);
                 $scope.search.name = "";
                 refreshLoc();
-                GoogleAnalytics.event("ChampionComparator", "AddChampion", champion, $scope.cmpList.length);
+                GoogleAnalytics.event("ChampionComparator", "AddChampion", champion.name, $scope.cmpList.length);
             }
         };
 
@@ -86,7 +86,7 @@
             if (index > -1) {
                 $scope.cmpList.splice(index, 1);
                 refreshLoc();
-                GoogleAnalytics.event("ChampionComparator", "RemoveChampion", champion, $scope.cmpList.length);
+                GoogleAnalytics.event("ChampionComparator", "RemoveChampion", champion.name, $scope.cmpList.length);
             }
         };
 
