@@ -18,6 +18,7 @@
 
     angular.module("websiteApp").run(function ($rootScope) {
         $rootScope.websiteUrl = "https://raid-codex.com";
+        $rootScope.apiUrl = "https://raid-codex.github.io/data/";
     });
 
     angular.module("websiteApp").factory("GoogleAnalytics", function () {
@@ -41,13 +42,43 @@
         return this;
     });
 
-    angular.module("websiteApp").factory("Champions", function ($http, $q) {
+    angular.module("websiteApp").factory("Champions", function ($http, $q, $rootScope) {
 
         this.all = function () {
             var deferred = $q.defer();
             $http({
                 method: "GET",
-                url: "https://raid-codex.github.io/champions/export/current/index.json",
+                url: $rootScope.apiUrl + "/champions/current/index.json",
+            }).then(deferred.resolve, deferred.reject);
+            return deferred.promise;
+        };
+
+        return this;
+
+    });
+
+    angular.module("websiteApp").factory("Factions", function ($http, $q, $rootScope) {
+
+        this.all = function () {
+            var deferred = $q.defer();
+            $http({
+                method: "GET",
+                url: $rootScope.apiUrl + "/factions/current/index.json",
+            }).then(deferred.resolve, deferred.reject);
+            return deferred.promise;
+        };
+
+        return this;
+
+    });
+
+    angular.module("websiteApp").factory("StatusEffects", function ($http, $q, $rootScope) {
+
+        this.all = function () {
+            var deferred = $q.defer();
+            $http({
+                method: "GET",
+                url: $rootScope.apiUrl + "/status-effects/current/index.json",
             }).then(deferred.resolve, deferred.reject);
             return deferred.promise;
         };

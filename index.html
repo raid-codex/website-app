@@ -59,13 +59,6 @@
     <link rel='stylesheet' id='wp-block-library-css'
         href='https://raid-codex.com/wp-includes/css/dist/block-library/style.min.css?ver=5.1.1' type='text/css'
         media='all' />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
-
-    <link rel='stylesheet' id='font-awesome-4-shims-css'
-        href='https://raid-codex.com/wp-content/plugins/themeisle-companion/obfx_modules/gutenberg-blocks/assets/fontawesome/css/v4-shims.min.css?ver=5.1.1'
-        type='text/css' media='all' />
     <link rel='stylesheet' id='themeisle-block_styles-css'
         href='https://raid-codex.com/wp-content/plugins/themeisle-companion/vendor/codeinwp/gutenberg-blocks/build/style.css?ver=5.1.1'
         type='text/css' media='all' />
@@ -83,9 +76,6 @@
     <link rel='stylesheet' id='obfx-module-pub-css-social-sharing-module-1-css'
         href='https://raid-codex.com/wp-content/plugins/themeisle-companion/obfx_modules/social-sharing/css/vendor/socicon/socicon.css?ver=2.8.3'
         type='text/css' media='all' />
-    <link rel='stylesheet' id='obfx-module-pub-css-menu-icons-0-css'
-        href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css?ver=2.8.3' type='text/css'
-        media='all' />
     <link rel='stylesheet' id='obfx-module-pub-css-menu-icons-1-css'
         href='https://raid-codex.com/wp-content/plugins/themeisle-companion/obfx_modules/menu-icons/css/public.css?ver=2.8.3'
         type='text/css' media='all' />
@@ -379,9 +369,6 @@
     <link rel='stylesheet' id='wpdreams-ajaxsearchlite-css'
         href='https://raid-codex.com/wp-content/plugins/ajax-search-lite/css/style-curvy-red.css?ver=4.7.25'
         type='text/css' media='all' />
-    <link rel='stylesheet' id='yoast-seo-adminbar-css'
-        href='https://raid-codex.com/wp-content/plugins/wordpress-seo/css/dist/adminbar-1110.min.css?ver=11.1'
-        type='text/css' media='all' />
     <script type='text/javascript' src='https://raid-codex.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
     <script type='text/javascript'
         src='https://raid-codex.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
@@ -390,8 +377,6 @@
         var ai_front = { "wp_ai": "5.1.1+2.4.16", "insertion_before": "BEFORE", "insertion_after": "AFTER", "insertion_prepend": "PREPEND CONTENT", "insertion_append": "APPEND CONTENT", "insertion_replace_content": "REPLACE CONTENT", "insertion_replace_element": "REPLACE ELEMENT", "cancel": "Cancel", "use": "Use", "add": "Add", "parent": "Parent", "cancel_element_selection": "Cancel element selection", "select_parent_element": "Select parent element", "css_selector": "CSS selector", "use_current_selector": "Use current selector", "element": "ELEMENT", "path": "PATH", "selector": "SELECTOR", "visible": "VISIBLE", "hidden": "HIDDEN" };
 /* ]]> */
     </script>
-    <script type='text/javascript'
-        src='https://raid-codex.com/wp-content/plugins/ad-inserter/includes/js/ai-jquery.js?ver=5.1.1+2.4.16'></script>
     <script type='text/javascript'
         src='https://raid-codex.com/wp-content/plugins/themeisle-companion/obfx_modules/social-sharing/js/public.js?ver=2.8.3'></script>
     <link rel='https://api.w.org/' href='https://raid-codex.com/wp-json/' />
@@ -404,13 +389,13 @@
         href="https://raid-codex.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fraid-codex.com%2Ftier-list%2F" />
     <link rel="alternate" type="text/xml+oembed"
         href="https://raid-codex.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fraid-codex.com%2Ftier-list%2F&#038;format=xml" />
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!--    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({
             google_ad_client: "ca-pub-3733389122742903",
             enable_page_level_ads: true
         });
-    </script>
+    </script>-->
     <style type="text/css">
         img[data-opt-src]:not([data-opt-lazy-loaded]) {
             transition: .2s filter linear, .2s opacity linear, .2s border-radius linear;
@@ -758,6 +743,40 @@
             width: max-content;
             width: -moz-max-content;
         }
+
+        .ng-champion-list .champion-single {
+            text-align: center;
+            padding: 10px;
+            height: 250px;
+        }
+
+        .ng-champion-list img.champion-img.champion-common {
+            border: 3px solid darkgray;
+        }
+
+        .ng-champion-list img.champion-img.champion-legendary {
+            border: 3px solid orange;
+        }
+
+        .ng-champion-list img.champion-img.champion-epic {
+            border: 3px solid #9900ff;
+        }
+
+        .ng-champion-list img.champion-img.champion-rare {
+            border: 3px solid #0099ff;
+        }
+
+        .ng-champion-list img.champion-img.champion-uncommon {
+            border: 3px solid #66ff66;
+        }
+
+        .ng-champion-list .filter-fixed {
+            height: 200px;
+        }
+
+        .ng-champion-list .filter-fixed .scrollable-content {
+            overflow-y: scroll;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
 </head>
@@ -821,7 +840,7 @@
 
                     <article id="post-1756" class="section section-text">
                         <div ng-app="websiteApp">
-                            <div ng-include="'app/champion-comparator/champion-comparator.html'"></div>
+                            <div ng-include="'app/champion-list/champion-list.html'"></div>
                         </div>
                     </article>
                 </div>
@@ -865,8 +884,10 @@
     </script>
     <script type="text/javascript" src="app/app.js"></script>
     <script type="text/javascript" src="app/champion-comparator/champion-comparator.js"></script>
+    <script type="text/javascript" src="app/champion-list/champion-list.js"></script>
     <script type="text/javascript" src="app/directives/champion-rarity/champion-rarity.js"></script>
     <script type="text/javascript" src="app/directives/champion-rating/champion-rating.js"></script>
+    <script type="text/javascript" src="app/directives/champion-list/champion-list.js"></script>
     <!--
 
     <script type="text/javascript" src="dist/app.min.js"></script>

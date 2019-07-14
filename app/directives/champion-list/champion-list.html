@@ -1,0 +1,78 @@
+<div class="row ng-champion-list">
+    <div class="col-xs-12 col-sm-3 col-md-2">
+        <div ng-if="$ctrl.showFilters">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2>Filters</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    Name
+                </div>
+                <div class="col-xs-12">
+                    <input type="text" ng-model="$ctrl.filterData.name" class="input-text form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    Faction <i class="fa fa-cross" ng-click="$ctrl.emptySelect($ctrl.filterData.faction)">rm</i>
+                </div>
+                <div class="col-xs-12">
+                    <select class="form-control" ng-model="$ctrl.filterData.faction" multiple>
+                        <option ng-repeat="faction in $ctrl.factions" value="{{ faction.slug }}">{{ faction.name }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    Buffs <i class="fa fa-cross" ng-click="$ctrl.emptySelect($ctrl.filterData.buff)">rm</i>
+                </div>
+                <div class="col-xs-12">
+                    <select class="form-control" ng-model="$ctrl.filterData.buff" multiple>
+                        <option ng-repeat="(effectType, slugs) in $ctrl.effectsSlugByType" value="{{ effectType }}"
+                            ng-if="$ctrl.effectsBySlug[slugs[0]].effect_type === 'buff'"
+                            style="background-image:url('https://raid-codex.com/wp-content/uploads/status-effects/{{$ctrl.effectsBySlug[slugs[0]].image_slug}}.png'); background-size: auto 80%; background-repeat: no-repeat;">
+                            &nbsp; &nbsp; {{ effectType }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    Debuffs <i class="fa fa-cross" ng-click="$ctrl.emptySelect($ctrl.filterData.debuff)">rm</i>
+                </div>
+                <div class="col-xs-12">
+                    <select class="form-control" ng-model="$ctrl.filterData.debuff" multiple>
+                        <option ng-repeat="(effectType, slugs) in $ctrl.effectsSlugByType" value="{{ effectType }}"
+                            ng-if="$ctrl.effectsBySlug[slugs[0]].effect_type === 'debuff'"
+                            style="background-image:url('https://raid-codex.com/wp-content/uploads/status-effects/{{$ctrl.effectsBySlug[slugs[0]].image_slug}}.png'); background-size: auto 80%; background-repeat: no-repeat;">
+                            &nbsp; &nbsp; {{ effectType }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-9 col-md-10">
+        <div class="row">
+            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 champion-single"
+                ng-repeat="champion in $ctrl.champions | filter:$ctrl.filterChampions">
+                <a href="https://raid-codex.com{{champion.website_link}}">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <img class="champion-img champion-{{champion.rarity | lowercase }}"
+                                ng-src="https://raid-codex.com/wp-content/uploads/hashed-img/{{champion.thumbnail}}.png"
+                                alt="{{ champion.name }}">
+                        </div>
+                        <div class="col-xs-12">
+                            <span class="champion-name">{{ champion.name }}</span><br>
+                            <champion-rating champion="champion"></champion-rating>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
