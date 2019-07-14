@@ -29,7 +29,6 @@
                         loadStatusEffects(),
                     ]).then(function () {
                         self.loaded = true;
-                        console.log("loaded");
                     });
                     $scope.$watch(function () {
                         return JSON.stringify(self.filterData);
@@ -126,7 +125,7 @@
                     if (self.filterData[key] && self.filterData[key].length > 0) {
                         var slugs = [];
                         self.filterData[key].forEach(function (type) {
-                            slugs += self.effectsSlugByType[type];
+                            slugs = slugs.concat(self.effectsSlugByType[type]);
                         });
                         for (var i = 0; i < value.skills.length; i++) {
                             var j;
