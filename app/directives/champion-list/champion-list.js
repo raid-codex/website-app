@@ -19,6 +19,7 @@
                         loadFactions(),
                         loadStatusEffects(),
                     ]).then(function () {
+                        self.loaded = true;
                         console.log("loaded");
                     });
                 }

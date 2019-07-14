@@ -1,87 +1,104 @@
-<div class="row ng-champion-list">
-    <div class="col-xs-12 col-sm-3 col-md-2">
-        <div ng-if="$ctrl.showFilters">
-            <div class="row">
-                <div class="col-xs-12">
-                    <h2>Filters</h2>
+<div class="row" ng-if="!$ctrl.loaded">
+    <div class="col-xs-12 centered">
+        <i class="fa-3x fas fa-spinner fa-pulse"></i>
+    </div>
+</div>
+<div class="row ng-champion-list" ng-if="$ctrl.loaded">
+    <div class="col-xs-12" ng-if="$ctrl.showFilters">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Filters</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        Name
+                    </div>
+                    <div class="col-xs-12">
+                        <input type="text" ng-model="$ctrl.filterData.name" class="input-text form-control">
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    Name
-                </div>
-                <div class="col-xs-12">
-                    <input type="text" ng-model="$ctrl.filterData.name" class="input-text form-control">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    Type <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.type)"></i>
-                </div>
-                <div class="col-xs-12">
-                    <select class="form-control" ng-model="$ctrl.filterData.type" multiple>
-                        <option value="HP">HP</option>
-                        <option value="Attack">Attack</option>
-                        <option value="Def">Defense</option>
-                        <option value="Assist">Support</option>
-                    </select>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        Type <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.type)"></i>
+                    </div>
+                    <div class="col-xs-12">
+                        <select class="form-control" ng-model="$ctrl.filterData.type" multiple>
+                            <option value="HP">HP</option>
+                            <option value="Attack">Attack</option>
+                            <option value="Def">Defense</option>
+                            <option value="Assist">Support</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    Element <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.element)"></i>
-                </div>
-                <div class="col-xs-12">
-                    <select class="form-control" ng-model="$ctrl.filterData.element" multiple>
-                        <option value="Spirit">Spirit</option>
-                        <option value="Force">Force</option>
-                        <option value="Void">Void</option>
-                        <option value="Magic">Magic</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    Faction <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.faction)"></i>
-                </div>
-                <div class="col-xs-12">
-                    <select class="form-control" ng-model="$ctrl.filterData.faction" multiple>
-                        <option ng-repeat="faction in $ctrl.factions" value="{{ faction.slug }}">{{ faction.name }}
-                        </option>
-                    </select>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        Element <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.element)"></i>
+                    </div>
+                    <div class="col-xs-12">
+                        <select class="form-control" ng-model="$ctrl.filterData.element" multiple>
+                            <option value="Spirit">Spirit</option>
+                            <option value="Force">Force</option>
+                            <option value="Void">Void</option>
+                            <option value="Magic">Magic</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    Buffs <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.buff)"></i>
-                </div>
-                <div class="col-xs-12">
-                    <select class="form-control" ng-model="$ctrl.filterData.buff" multiple>
-                        <option ng-repeat="(effectType, slugs) in $ctrl.effectsSlugByType" value="{{ effectType }}"
-                            ng-if="$ctrl.effectsBySlug[slugs[0]].effect_type === 'buff'"
-                            style="background-image:url('https://raid-codex.com/wp-content/uploads/status-effects/{{$ctrl.effectsBySlug[slugs[0]].image_slug}}.png'); background-size: auto 80%; background-repeat: no-repeat;">
-                            &nbsp; &nbsp; {{ effectType }}
-                        </option>
-                    </select>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        Faction <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.faction)"></i>
+                    </div>
+                    <div class="col-xs-12">
+                        <select class="form-control" ng-model="$ctrl.filterData.faction" multiple>
+                            <option ng-repeat="faction in $ctrl.factions" value="{{ faction.slug }}">{{ faction.name }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    Debuffs <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.debuff)"></i>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        Buffs <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.buff)"></i>
+                    </div>
+                    <div class="col-xs-12">
+                        <select class="form-control" ng-model="$ctrl.filterData.buff" multiple>
+                            <option ng-repeat="(effectType, slugs) in $ctrl.effectsSlugByType" value="{{ effectType }}"
+                                ng-if="$ctrl.effectsBySlug[slugs[0]].effect_type === 'buff'"
+                                style="background-image:url('https://raid-codex.com/wp-content/uploads/status-effects/{{$ctrl.effectsBySlug[slugs[0]].image_slug}}.png'); background-size: auto 80%; background-repeat: no-repeat;">
+                                &nbsp; &nbsp; {{ effectType }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-xs-12">
-                    <select class="form-control" ng-model="$ctrl.filterData.debuff" multiple>
-                        <option ng-repeat="(effectType, slugs) in $ctrl.effectsSlugByType" value="{{ effectType }}"
-                            ng-if="$ctrl.effectsBySlug[slugs[0]].effect_type === 'debuff'"
-                            style="background-image:url('https://raid-codex.com/wp-content/uploads/status-effects/{{$ctrl.effectsBySlug[slugs[0]].image_slug}}.png'); background-size: auto 80%; background-repeat: no-repeat;">
-                            &nbsp; &nbsp; {{ effectType }}
-                        </option>
-                    </select>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                <div class="row">
+                    <div class="col-xs-12">
+                        Debuffs <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.debuff)"></i>
+                    </div>
+                    <div class="col-xs-12">
+                        <select class="form-control" ng-model="$ctrl.filterData.debuff" multiple>
+                            <option ng-repeat="(effectType, slugs) in $ctrl.effectsSlugByType" value="{{ effectType }}"
+                                ng-if="$ctrl.effectsBySlug[slugs[0]].effect_type === 'debuff'"
+                                style="background-image:url('https://raid-codex.com/wp-content/uploads/status-effects/{{$ctrl.effectsBySlug[slugs[0]].image_slug}}.png'); background-size: auto 80%; background-repeat: no-repeat;">
+                                &nbsp; &nbsp; {{ effectType }}
+                            </option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-9 col-md-10">
+    <div class="col-xs-12">
         <div class="row">
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 champion-single"
                 ng-repeat="champion in $ctrl.champions | filter:$ctrl.filterChampions">
