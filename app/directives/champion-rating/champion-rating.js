@@ -4,7 +4,7 @@
         return {
             restrict: 'E',
             scope: {
-                rating: '='
+                rating: '=',
             },
 
             controller: function ($scope) {
@@ -23,7 +23,8 @@
                     }
                 };
             },
-
+            controllerAs: "$ctrl",
+            bindToController: true,
             templateUrl: 'app/directives/champion-rating/champion-rating.html',
 
             replace: true,

@@ -16,7 +16,33 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    Faction <i class="fa fa-cross" ng-click="$ctrl.emptySelect($ctrl.filterData.faction)">rm</i>
+                    Type <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.type)"></i>
+                </div>
+                <div class="col-xs-12">
+                    <select class="form-control" ng-model="$ctrl.filterData.type" multiple>
+                        <option value="HP">HP</option>
+                        <option value="Attack">Attack</option>
+                        <option value="Def">Defense</option>
+                        <option value="Assist">Support</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    Element <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.element)"></i>
+                </div>
+                <div class="col-xs-12">
+                    <select class="form-control" ng-model="$ctrl.filterData.element" multiple>
+                        <option value="Spirit">Spirit</option>
+                        <option value="Force">Force</option>
+                        <option value="Void">Void</option>
+                        <option value="Magic">Magic</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    Faction <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.faction)"></i>
                 </div>
                 <div class="col-xs-12">
                     <select class="form-control" ng-model="$ctrl.filterData.faction" multiple>
@@ -27,7 +53,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    Buffs <i class="fa fa-cross" ng-click="$ctrl.emptySelect($ctrl.filterData.buff)">rm</i>
+                    Buffs <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.buff)"></i>
                 </div>
                 <div class="col-xs-12">
                     <select class="form-control" ng-model="$ctrl.filterData.buff" multiple>
@@ -41,7 +67,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    Debuffs <i class="fa fa-cross" ng-click="$ctrl.emptySelect($ctrl.filterData.debuff)">rm</i>
+                    Debuffs <i class="fa fa-times" ng-click="$ctrl.emptySelect($ctrl.filterData.debuff)"></i>
                 </div>
                 <div class="col-xs-12">
                     <select class="form-control" ng-model="$ctrl.filterData.debuff" multiple>
@@ -68,7 +94,7 @@
                         </div>
                         <div class="col-xs-12">
                             <span class="champion-name">{{ champion.name }}</span><br>
-                            <champion-rating champion="champion"></champion-rating>
+                            <champion-rating rating="champion.rating.overall"></champion-rating>
                         </div>
                     </div>
                 </a>

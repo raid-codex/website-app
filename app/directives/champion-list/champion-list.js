@@ -94,6 +94,16 @@
                     if (!filterStatusEffect("debuff", value)) {
                         return false;
                     }
+                    if (self.filterData.type && self.filterData.type.length > 0) {
+                        if (self.filterData.type.indexOf(value.type) === -1) {
+                            return false;
+                        }
+                    }
+                    if (self.filterData.element && self.filterData.element.length > 0) {
+                        if (self.filterData.element.indexOf(value.element) === -1) {
+                            return false;
+                        }
+                    }
                     return true;
                 };
 
@@ -124,7 +134,9 @@
                 }
 
                 this.emptySelect = function (v) {
-                    v.splice(0, v.length);
+                    if (v) {
+                        v.splice(0, v.length);
+                    }
                 };
 
                 init();
