@@ -14,6 +14,15 @@
                 self.filterData = {};
 
                 function init() {
+                    var current = $location.search();
+                    if (current.filter) {
+                        try {
+                            self.filterData = JSON.parse(atob(current.filter));
+                        } catch (e) {
+                            console.error(e);
+                            self.filterData = {};
+                        }
+                    }
                     $q.all([
                         loadChampions(),
                         loadFactions(),
@@ -21,6 +30,11 @@
                     ]).then(function () {
                         self.loaded = true;
                         console.log("loaded");
+                    });
+                    $scope.$watch(function () {
+                        return JSON.stringify(self.filterData);
+                    }, function () {
+                        refreshLoc();
                     });
                 }
 
@@ -74,8 +88,8 @@
                 }
 
                 function refreshLoc() {
-                    var obj = {};
-                    $location.search(obj);
+                    console.log("refreshing filter");
+                    $location.search("filter", btoa(JSON.stringify(self.filterData)));
                 }
 
                 this.filterChampions = function (value, index, array) {
