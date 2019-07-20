@@ -5,22 +5,50 @@
             restrict: 'E',
             scope: {
                 showFilters: "=",
+                filters: "=",
             },
 
             controller: function ($scope, $location, $filter, GoogleAnalytics, Champions, $q, Factions, StatusEffects) {
 
                 var self = this;
 
+                var canHaveLoc = false;
                 self.filterData = {};
+                var allowedFilters = {
+                    "name": true,
+                    "buff": true,
+                    "debuff": true,
+                    "type": true,
+                    "element": true,
+                    "faction": true,
+                    "battle_enhancements": true,
+                };
 
                 function init() {
-                    var current = $location.search();
-                    if (current.filter) {
-                        try {
-                            self.filterData = JSON.parse(atob(current.filter));
-                        } catch (e) {
-                            console.error(e);
-                            self.filterData = {};
+                    console.log($scope.showFilters);
+                    if ($scope.showFilters === true) {
+                        self.showFilters = true;
+                    } else if (typeof $scope.showFilters === "object") {
+                        self.showFilters = true;
+                        allowedFilters = $scope.showFilters;
+                    } else {
+                        self.showFilters = false;
+                    }
+                    if ($scope.filters) {
+                        canHaveLoc = false;
+                        Object.keys($scope.filters).forEach(function (k) {
+                            self.filterData[k] = $scope.filters[k];
+                        });
+                    } else {
+                        canHaveLoc = true;
+                        var current = $location.search();
+                        if (current.filter) {
+                            try {
+                                self.filterData = JSON.parse(atob(current.filter));
+                            } catch (e) {
+                                console.error(e);
+                                self.filterData = {};
+                            }
                         }
                     }
                     $q.all([
@@ -36,6 +64,11 @@
                         refreshLoc();
                     });
                 }
+
+                self.isFilterAllowed = function (filterName) {
+                    var allowed = allowedFilters[filterName] === true;
+                    return allowed;
+                };
 
                 function loadStatusEffects() {
                     var deferred = $q.defer();
@@ -87,7 +120,9 @@
                 }
 
                 function refreshLoc() {
-                    console.log("refreshing filter");
+                    if (!canHaveLoc) {
+                        return;
+                    }
                     $location.search("filter", btoa(JSON.stringify(self.filterData)));
                 }
 
@@ -106,6 +141,9 @@
                         return false;
                     }
                     if (!filterStatusEffect("debuff", value)) {
+                        return false;
+                    }
+                    if (!filterStatusEffect("battle_enhancements", value)) {
                         return false;
                     }
                     if (self.filterData.type && self.filterData.type.length > 0) {
@@ -158,7 +196,7 @@
 
             },
             controllerAs: "$ctrl",
-            bindToController: true,
+            //bindToController: true,
             templateUrl: "app/directives/champion-list/champion-list.html",
         };
 
