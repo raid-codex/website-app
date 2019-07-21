@@ -6,6 +6,7 @@
             scope: {
                 showFilters: "=",
                 filters: "=",
+                showIcons: "=",
             },
 
             controller: function ($scope, $location, $filter, GoogleAnalytics, Champions, $q, Factions, StatusEffects) {
@@ -21,11 +22,10 @@
                     "type": true,
                     "element": true,
                     "faction": true,
-                    "battle_enhancements": true,
+                    "battle_enhancement": true,
                 };
 
                 function init() {
-                    console.log($scope.showFilters);
                     if ($scope.showFilters === true) {
                         self.showFilters = true;
                     } else if (typeof $scope.showFilters === "object") {
@@ -34,6 +34,7 @@
                     } else {
                         self.showFilters = false;
                     }
+                    self.showIcons = $scope.showIcons || [];
                     if ($scope.filters) {
                         canHaveLoc = false;
                         Object.keys($scope.filters).forEach(function (k) {
@@ -45,6 +46,9 @@
                         if (current.filter) {
                             try {
                                 self.filterData = JSON.parse(atob(current.filter));
+                                if (self.filterData.battle_enhancements && !self.filterData.battle_enhancement) {
+                                    self.filterData.battle_enhancement = self.filterData.battle_enhancements;
+                                }
                             } catch (e) {
                                 console.error(e);
                                 self.filterData = {};
@@ -70,19 +74,34 @@
                     return allowed;
                 };
 
+                self.effectFilterSelected = function (slug) {
+                    var type = self.effectsBySlug[slug].type;
+                    return ((self.filterData.battle_enhancement && self.filterData.battle_enhancement.indexOf(type) !== -1) ||
+                        (self.filterData.buff && self.filterData.buff.indexOf(type) !== -1) ||
+                        (self.filterData.debuff && self.filterData.debuff.indexOf(type) !== -1));
+                };
+
                 function loadStatusEffects() {
                     var deferred = $q.defer();
                     StatusEffects.all().then(function (res) {
                         self.statusEffects = res.data;
                         self.effectsSlugByType = {};
                         self.effectsBySlug = {};
+                        var imgSlugs = [];
                         self.statusEffects.forEach(function (effect) {
                             if (!self.effectsSlugByType[effect.type]) {
                                 self.effectsSlugByType[effect.type] = [];
                             }
+                            if (effect.effect_type === "buff" || effect.effect_type === "debuff") {
+                                imgSlugs.push(effect.slug);
+                            }
                             self.effectsBySlug[effect.slug] = effect;
                             self.effectsSlugByType[effect.type].push(effect.slug);
                         });
+                        if (self.showIcons === true) {
+                            // convert catch all
+                            self.showIcons = imgSlugs;
+                        }
                         deferred.resolve();
                     }, function (err) {
                         console.error(err);
@@ -143,7 +162,7 @@
                     if (!filterStatusEffect("debuff", value)) {
                         return false;
                     }
-                    if (!filterStatusEffect("battle_enhancements", value)) {
+                    if (!filterStatusEffect("battle_enhancement", value)) {
                         return false;
                     }
                     if (self.filterData.type && self.filterData.type.length > 0) {
@@ -158,6 +177,36 @@
                     }
                     return true;
                 };
+
+                var championEffectCache = {};
+
+                self.championHasEffect = function (champion, effectSlug) {
+                    var key = champion.slug + "-" + effectSlug;
+                    if (typeof championEffectCache[key] === typeof undefined) {
+                        var res = championHasEffect(champion, effectSlug);
+                        championEffectCache[key] = res;
+                    }
+                    return championEffectCache[key];
+                };
+
+                function championHasEffect(champion, effectSlug) {
+                    for (var i = 0; i < champion.skills.length; i++) {
+                        var j;
+                        for (j = 0; j < champion.skills[i].effects.length; j++) {
+                            if (champion.skills[i].effects[j].slug == effectSlug) {
+                                return true;
+                            }
+                        }
+                        for (j = 0; j < champion.skills[i].upgrades.length; j++) {
+                            for (var k = 0; k < champion.skills[i].upgrades[j].effects.length; k++) {
+                                if (champion.skills[i].upgrades[j].effects[k].slug === effectSlug) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    return false;
+                }
 
                 function filterStatusEffect(key, value) {
                     if (self.filterData[key] && self.filterData[key].length > 0) {
