@@ -18,7 +18,7 @@
 
     angular.module("websiteApp").run(function ($rootScope) {
         $rootScope.websiteUrl = "https://raid-codex.com";
-        $rootScope.apiUrl = "https://raid-codex.github.io/data/";
+        $rootScope.apiUrl = "https://api.raid-codex.com";
     });
 
     angular.module("websiteApp").factory("GoogleAnalytics", function () {
@@ -48,7 +48,7 @@
             var deferred = $q.defer();
             $http({
                 method: "GET",
-                url: $rootScope.apiUrl + "/champions/current/index.json",
+                url: $rootScope.apiUrl + "/champions/",
             }).then(deferred.resolve, deferred.reject);
             return deferred.promise;
         };
@@ -63,7 +63,7 @@
             var deferred = $q.defer();
             $http({
                 method: "GET",
-                url: $rootScope.apiUrl + "/factions/current/index.json",
+                url: $rootScope.apiUrl + "/factions/",
             }).then(deferred.resolve, deferred.reject);
             return deferred.promise;
         };
@@ -78,7 +78,7 @@
             var deferred = $q.defer();
             $http({
                 method: "GET",
-                url: $rootScope.apiUrl + "/status-effects/current/index.json",
+                url: $rootScope.apiUrl + "/status-effects/",
             }).then(deferred.resolve, deferred.reject);
             return deferred.promise;
         };
