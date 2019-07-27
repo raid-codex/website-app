@@ -40,6 +40,7 @@
                         Object.keys($scope.filters).forEach(function (k) {
                             self.filterData[k] = $scope.filters[k];
                         });
+                        console.log(self.filterData);
                     } else {
                         canHaveLoc = true;
                         var current = $location.search();
@@ -173,6 +174,17 @@
                     if (self.filterData.element && self.filterData.element.length > 0) {
                         if (self.filterData.element.indexOf(value.element) === -1) {
                             return false;
+                        }
+                    }
+                    if (self.filterData.tag && self.filterData.tag.length > 0 && value.tags) {
+                        if (value.tags.length == 0) {
+                            // no tags means no match
+                            return false;
+                        }
+                        for (var i = 0; i < value.tags.length; i++) {
+                            if (self.filterData.tag.indexOf(value.tags[i]) === -1) {
+                                return false;
+                            }
                         }
                     }
                     return true;
