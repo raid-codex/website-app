@@ -209,7 +209,7 @@
                                 return true;
                             }
                         }
-                        for (j = 0; j < champion.skills[i].upgrades.length; j++) {
+                        for (j = 0; champion.skills[i].upgrades && j < champion.skills[i].upgrades.length; j++) {
                             for (var k = 0; k < champion.skills[i].upgrades[j].effects.length; k++) {
                                 if (champion.skills[i].upgrades[j].effects[k].slug === effectSlug) {
                                     return true;

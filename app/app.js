@@ -47,8 +47,8 @@
         this.all = function (small) {
             var url = $rootScope.apiUrl + "/champions/";
             if (small) {
-                //url += "index-small";
-                url = "http://locahost:8000/index-small.json";
+                url += "index-small";
+                //url = "http://localhost:8000/index-small.json";
             }
             var deferred = $q.defer();
             $http({
