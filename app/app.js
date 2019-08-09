@@ -44,11 +44,16 @@
 
     angular.module("websiteApp").factory("Champions", function ($http, $q, $rootScope) {
 
-        this.all = function () {
+        this.all = function (small) {
+            var url = $rootScope.apiUrl + "/champions/";
+            if (small) {
+                //url += "index-small";
+                url = "http://locahost:8000/index-small.json";
+            }
             var deferred = $q.defer();
             $http({
                 method: "GET",
-                url: $rootScope.apiUrl + "/champions/",
+                url: url,
             }).then(deferred.resolve, deferred.reject);
             return deferred.promise;
         };

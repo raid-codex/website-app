@@ -125,7 +125,7 @@
 
                 function loadChampions() {
                     var deferred = $q.defer();
-                    Champions.all().then(function (res) {
+                    Champions.all(true).then(function (res) {
                         self.champions = res.data;
                         self.championsByName = {};
                         self.champions.forEach(function (champion) {
