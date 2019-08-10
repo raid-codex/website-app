@@ -7,6 +7,8 @@
                 showFilters: "=",
                 filters: "=",
                 showIcons: "=",
+                allowAds: "=",
+                replaceLoc: "=",
             },
 
             controller: function ($scope, $location, $filter, GoogleAnalytics, Champions, $q, Factions, StatusEffects) {
@@ -23,9 +25,13 @@
                     "element": true,
                     "faction": true,
                     "battle_enhancement": true,
+                    "rating": false,
                 };
 
                 function init() {
+                    if ($scope.allowAds === true) {
+                        self.allowAds = true;
+                    }
                     if ($scope.showFilters === true) {
                         self.showFilters = true;
                     } else if (typeof $scope.showFilters === "object") {
@@ -55,6 +61,9 @@
                                 self.filterData = {};
                             }
                         }
+                    }
+                    if ($scope.replaceLoc === false) {
+                        canHaveLoc = false;
                     }
                     $q.all([
                         loadChampions(),
@@ -183,6 +192,13 @@
                         }
                         for (var i = 0; i < value.tags.length; i++) {
                             if (self.filterData.tag.indexOf(value.tags[i]) === -1) {
+                                return false;
+                            }
+                        }
+                    }
+                    if (self.filterData.rating && Object.keys(self.filterData.rating).length > 0) {
+                        for (var k in self.filterData.rating) {
+                            if (value.rating[k] !== self.filterData.rating[k]) {
                                 return false;
                             }
                         }

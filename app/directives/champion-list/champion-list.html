@@ -116,29 +116,35 @@
     </div>
     <div class="col-xs-12">
         <div class="row">
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 champion-single"
-                ng-repeat="champion in $ctrl.champions | filter:$ctrl.filterChampions">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <a href="https://raid-codex.com{{champion.website_link}}">
-                            <img class="champion-img champion-{{champion.rarity | lowercase }}"
-                                ng-src="https://raid-codex.com/wp-content/uploads/hashed-img/{{champion.thumbnail}}.png"
-                                alt="{{ champion.name }}">
-                        </a>
-                    </div>
-                    <div class="col-xs-12">
-                        <a class="hidden-xs" href="https://raid-codex.com{{champion.website_link}}">
-                            <span class="champion-name">{{ champion.name }}</span>
-                        </a>
-                        <span class="champion-name hidden-sm hidden-md hidden-lg">{{ champion.name }}</span>
-                        <br>
-                        <champion-rating rating="champion.rating.overall"></champion-rating>
-                    </div>
-                    <div class="col-xs-12" ng-if="$ctrl.showIcons.length > 0">
-                        <img ng-repeat="slug in $ctrl.showIcons"
-                            ng-if="$ctrl.championHasEffect(champion, slug) && $ctrl.effectFilterSelected(slug)" width=20
-                            height=20
-                            src="https://raid-codex.com/wp-content/uploads/status-effects/{{ $ctrl.effectsBySlug[slug].image_slug }}.png">
+            <div ng-repeat="champion in $ctrl.champions | filter:$ctrl.filterChampions">
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 champion-single"
+                    ng-if="$index > 0 && $index % 14 == 0 && $ctrl.allowAds">
+                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3733389122742903"
+                        data-ad-slot="8990601453" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                </div>
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 champion-single">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a href="https://raid-codex.com{{champion.website_link}}">
+                                <img class="champion-img champion-{{champion.rarity | lowercase }}"
+                                    ng-src="https://raid-codex.com/wp-content/uploads/hashed-img/{{champion.thumbnail}}.png"
+                                    alt="{{ champion.name }}" width="140" height="182">
+                            </a>
+                        </div>
+                        <div class="col-xs-12">
+                            <a class="hidden-xs" href="https://raid-codex.com{{champion.website_link}}">
+                                <span class="champion-name">{{ champion.name }}</span>
+                            </a>
+                            <span class="champion-name hidden-sm hidden-md hidden-lg">{{ champion.name }}</span>
+                            <br>
+                            <champion-rating rating="champion.rating.overall"></champion-rating>
+                        </div>
+                        <div class="col-xs-12" ng-if="$ctrl.showIcons.length > 0">
+                            <img ng-repeat="slug in $ctrl.showIcons"
+                                ng-if="$ctrl.championHasEffect(champion, slug) && $ctrl.effectFilterSelected(slug)"
+                                width=20 height=20
+                                src="https://raid-codex.com/wp-content/uploads/status-effects/{{ $ctrl.effectsBySlug[slug].image_slug }}.png">
+                        </div>
                     </div>
                 </div>
             </div>
