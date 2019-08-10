@@ -137,7 +137,7 @@
                             </a>
                             <span class="champion-name hidden-sm hidden-md hidden-lg">{{ champion.name }}</span>
                             <br>
-                            <champion-rating rating="champion.rating.overall"></champion-rating>
+                            <champion-rating rating="champion.rating[$ctrl.ratingKey]"></champion-rating>
                         </div>
                         <div class="col-xs-12" ng-if="$ctrl.showIcons.length > 0">
                             <img ng-repeat="slug in $ctrl.showIcons"

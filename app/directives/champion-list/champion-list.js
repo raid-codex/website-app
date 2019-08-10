@@ -9,6 +9,7 @@
                 showIcons: "=",
                 allowAds: "=",
                 replaceLoc: "=",
+                ratingKey: "="
             },
 
             controller: function ($scope, $location, $filter, GoogleAnalytics, Champions, $q, Factions, StatusEffects) {
@@ -29,6 +30,11 @@
                 };
 
                 function init() {
+                    if (typeof $scope.ratingKey === "undefined") {
+                        self.ratingKey = "overall";
+                    } else {
+                        self.ratingKey = $scope.ratingKey;
+                    }
                     if ($scope.allowAds === true) {
                         self.allowAds = true;
                     }
