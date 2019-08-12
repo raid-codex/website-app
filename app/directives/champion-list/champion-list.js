@@ -255,7 +255,7 @@
                                     return true;
                                 }
                             }
-                            for (j = 0; j < value.skills[i].upgrades.length; j++) {
+                            for (j = 0; value.skills[i].upgrades && j < value.skills[i].upgrades.length; j++) {
                                 for (var k = 0; k < value.skills[i].upgrades[j].effects.length; k++) {
                                     if (slugs && slugs.indexOf(value.skills[i].upgrades[j].effects[k].slug) !== -1) {
                                         return true;
