@@ -115,13 +115,14 @@
         </div>
     </div>
     <div class="col-xs-12">
+        <div class="row" ng-if="$ctrl.allowAds">
+            <div class="col-xs-12">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3733389122742903"
+                    data-ad-slot="8990601453" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            </div>
+        </div>
         <div class="row">
             <div ng-repeat="champion in $ctrl.champions | filter:$ctrl.filterChampions">
-                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 champion-single"
-                    ng-if="$index > 0 && $index % 14 == 0 && $ctrl.allowAds">
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3733389122742903"
-                        data-ad-slot="8990601453" data-ad-format="auto" data-full-width-responsive="true"></ins>
-                </div>
                 <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2 champion-single">
                     <div class="row">
                         <div class="col-xs-12">
